@@ -37,20 +37,16 @@ public class WikipediaLinkExtraction {
             Matcher linkMatcher = PATTERN_LINK.matcher(replacedLine);
             if(titleMatcher.matches()) {
                 currentTitle = titleMatcher.group(1);
-                System.out.println("\n------------------------------------------------------------------------");
-                System.out.println(currentTitle);
             }
             while (linkMatcher.find()) {
                 int begin = linkMatcher.start(1);
                 int end = linkMatcher.end(1);
-                String matched = replacedLine.substring(begin, end);
-                int position = matched.indexOf('|');
-                System.out.println("'" + matched + "' [BEFORE] (" + begin + "," + end + ")");
+                String linkName = replacedLine.substring(begin, end);
+                int position = linkName.indexOf('|');
                 if(position > -1) {
-                    System.out.println("position="+position);
-                    matched = matched.substring(position+1);
-                    System.out.println("'" + matched + "' (" + begin + "," + end + ")");
+                    linkName = linkName.substring(position+1);
                 }
+                System.out.println(currentTitle + '\t' + linkName);
 
             }
             /*
