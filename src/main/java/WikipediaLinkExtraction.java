@@ -40,12 +40,17 @@ public class WikipediaLinkExtraction {
                 System.out.println("\n------------------------------------------------------------------------");
             }
             while (linkMatcher.find()) {
-                System.out.println(linkMatcher.start(0));
+                int begin = linkMatcher.start();
+                int end = linkMatcher.end();
+                String matched = replacedLine.substring(begin, end);
+                System.out.println("'" + matched + "' (" + begin + "," + end + ")");
             }
+            /*
             if(linkMatcher.lookingAt()) {
                 System.out.println("currentTitle='" + currentTitle + "'");
                 System.out.println("(" + replacedLine.length() + ") replacedLine='" + replacedLine + "'");
             }
+             */
 
         }
     }
