@@ -37,17 +37,14 @@ public class WikipediaLinkExtraction {
             Matcher linkMatcher = PATTERN_LINK.matcher(replacedLine);
             if(titleMatcher.matches()) {
                 currentTitle = titleMatcher.group(1);
+                System.out.println("\n------------------------------------------------------------------------");
+            }
+            while (linkMatcher.find()) {
+                System.out.println(linkMatcher.start(0));
             }
             if(linkMatcher.lookingAt()) {
-                log.info("replacedLine=" + replacedLine);
-
-                int numberOfLinks = linkMatcher.groupCount();
-                log.info("linkMatcher.groupCount()=" + numberOfLinks);
-                for (int currentGroup = 1; currentGroup < numberOfLinks +1; currentGroup++) {
-                    log.info("linkMatcher.group(currentGroup)='" +
-                            linkMatcher.group(currentGroup) +
-                            "'");
-                }
+                System.out.print("currentTitle='" + currentTitle + "'");
+                System.out.print("replacedLine='" + replacedLine + "'");
             }
 
         }
