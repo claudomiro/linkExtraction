@@ -19,6 +19,7 @@ public class WikipediaLinkExtraction {
         new WikipediaLinkExtraction(inputPath);
     }
     private static Pattern PATTERN_TITLE = Pattern.compile(".*<title>(.+)</title>.*");
+    private static Pattern PATTERN_LINK = Pattern.compile("<<([^>]+)>>");
 
     private String currentTitle = "";
 
@@ -30,11 +31,23 @@ public class WikipediaLinkExtraction {
         FileInputStream inputFIS = new FileInputStream(inputPath.toFile());
         Scanner sc = new Scanner(inputFIS, "UTF-8");
         while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            Matcher titleMatcher = PATTERN_TITLE.matcher(line);
+            // substitute chars to simplify the algorithm
+            String replacedLine = sc.nextLine().replace('[', '<').replace(']', '>');
+            Matcher titleMatcher = PATTERN_TITLE.matcher(replacedLine);
+            Matcher linkMatcher = PATTERN_LINK.matcher(replacedLine);
             if(titleMatcher.matches()) {
                 currentTitle = titleMatcher.group(1);
-                log.info("title line: '" + currentTitle + "'");
+            }
+            if(linkMatcher.lookingAt()) {
+                log.info("replacedLine=" + replacedLine);
+
+                int numberOfLinks = linkMatcher.groupCount();
+                log.info("linkMatcher.groupCount()=" + numberOfLinks);
+                for (int currentGroup = 1; currentGroup < numberOfLinks +1; currentGroup++) {
+                    log.info("linkMatcher.group(currentGroup)='" +
+                            linkMatcher.group(currentGroup) +
+                            "'");
+                }
             }
 
         }
