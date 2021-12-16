@@ -49,13 +49,6 @@ public class WikipediaLinkExtraction {
                 System.out.println(currentTitle + '\t' + linkName);
 
             }
-            /*
-            if(linkMatcher.lookingAt()) {
-                System.out.println("currentTitle='" + currentTitle + "'");
-                System.out.println("(" + replacedLine.length() + ") replacedLine='" + replacedLine + "'");
-            }
-             */
-
         }
     }
 }
