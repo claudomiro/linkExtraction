@@ -18,7 +18,7 @@ public class WikipediaLinkExtraction {
 
         new WikipediaLinkExtraction(inputPath);
     }
-    private static Pattern titlePattern = Pattern.compile(".*<title>(.+)</title>.*");
+    private static Pattern PATTERN_TITLE = Pattern.compile(".*<title>(.+)</title>.*");
 
     private String currentTitle = "";
 
@@ -31,7 +31,7 @@ public class WikipediaLinkExtraction {
         Scanner sc = new Scanner(inputFIS, "UTF-8");
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
-            Matcher titleMatcher = titlePattern.matcher(line);
+            Matcher titleMatcher = PATTERN_TITLE.matcher(line);
             if(titleMatcher.matches()) {
                 currentTitle = titleMatcher.group(1);
                 log.info("title line: '" + currentTitle + "'");
